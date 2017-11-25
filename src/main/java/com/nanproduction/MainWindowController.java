@@ -11,12 +11,12 @@ import java.io.IOException;
 
 public class MainWindowController {
 
-    private static WebSocket webSocket;
-    private static final String SERVER = "ws://localhost:8081/websocket";
+    public static WebSocket webSocket;
+    private static final String SERVER = "ws://172.19.74.149:8081/websocket";
     private static final int TIMEOUT = 150;
     private boolean firstQuery = true;
     private boolean connected = false;
-
+    private boolean firstMessage=true;
 
     public MainWindowController() {
         System.out.println("MainWindowController() called");
@@ -43,14 +43,26 @@ public class MainWindowController {
 
     @FXML
     public void onConnectToServer() {
+
         if (!connected) {
             System.err.println("Connecting...");
             try {
                 webSocket = connectToServer();
                 System.err.println("Connected");
                 connected = true;
+
             } catch (IOException | WebSocketException e){
                 System.out.println(e);
+            }
+        }
+        else
+        {
+            if(firstMessage) {
+                webSocket.sendText("fck");
+                firstMessage=false;
+            }
+            else{
+                webSocket.sendText("LOL");
             }
         }
 
@@ -59,11 +71,17 @@ public class MainWindowController {
     @FXML
     public void onDisconnect() {
         if (connected) {
-            System.err.println("Disconnecting...");
-            webSocket.disconnect();
-            System.err.println("Disconnected");
+            //webSocket.disconnect();
+            disconnect();
             connected = false;
             firstQuery = true;
+            firstMessage= false;
         }
+    }
+
+    public static void disconnect(){
+        System.err.println("Disconnecting...");
+        webSocket.disconnect();
+        System.err.println("Disconnected");
     }
 }

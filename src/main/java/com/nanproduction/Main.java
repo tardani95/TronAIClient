@@ -6,6 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import static com.nanproduction.MainWindowController.disconnect;
+import static com.nanproduction.MainWindowController.webSocket;
+
 public class Main extends Application {
 
     private static final int SCREEN_SIZE_X = 1280;
@@ -28,6 +31,8 @@ public class Main extends Application {
 
     @Override
     public void stop() throws Exception {
+        //webSocket.disconnect();
+        disconnect();
         System.out.println("stop()");
         super.stop();
     }
