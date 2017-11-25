@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.nanproduction.MainWindowController"
+            prefHeight="400.0" prefWidth="600.0">
+    <HBox prefWidth="250.0" spacing="10">
+        <Button onAction="#onConnectToServer" text="Connect to server"/>
+        <Button onAction="#onDisconnect" text="Disconnect" />
+    </HBox>
+</AnchorPane>
