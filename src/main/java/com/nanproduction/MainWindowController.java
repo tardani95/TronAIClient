@@ -12,7 +12,7 @@ import java.io.IOException;
 public class MainWindowController {
 
     public static WebSocket webSocket;
-    private static final String SERVER = "ws://172.19.74.149:8081/websocket";
+    private static final String SERVER = "ws://192.168.137.109:8090/websocket";
     private static final int TIMEOUT = 150;
     private boolean firstQuery = true;
     private boolean connected = false;
