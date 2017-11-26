@@ -9,8 +9,9 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.nanproduction.MainWindowController"
             prefHeight="400.0" prefWidth="600.0">
-    <HBox prefWidth="250.0" spacing="10">
+    <HBox spacing="10">
         <Button onAction="#onConnectToServer" text="Connect to server"/>
+        <Button onAction="#onReady" text="I am ready!"/>
         <Button onAction="#onDisconnect" text="Disconnect" />
     </HBox>
 </AnchorPane>
