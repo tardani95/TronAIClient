@@ -5,11 +5,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import static com.nanproduction.MainWindowController.disconnect;
 import static com.nanproduction.MainWindowController.webSocket;
+import static javafx.scene.input.KeyCode.*;
 
 public class Main extends Application {
 
@@ -19,23 +21,37 @@ public class Main extends Application {
     private Scene scene;
 
 
-
-
     public static void main(String[] args) {
         System.out.println("main()");
         Application.launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         System.out.println("start()");
         Parent root = FXMLLoader.load(getClass().getResource("/mainWindow.fxml"));
         primaryStage.setTitle("TronAIClient");
-        scene=new Scene(root, SCREEN_SIZE_X, SCREEN_SIZE_Y);
+        scene = new Scene(root, SCREEN_SIZE_X, SCREEN_SIZE_Y);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                MainWindowController.webSocket.sendText(String.valueOf(event.getCode()));
+                KeyCode keyCode = event.getCode();
+                switch (event.getCode()) {
+                    case W:
+                        MainWindowController.webSocket.sendText("8");
+                        break;
+                    case A:
+                        MainWindowController.webSocket.sendText("4");
+                        break;
+                    case S:
+                        MainWindowController.webSocket.sendText("2");
+                        break;
+                    case D:
+                        MainWindowController.webSocket.sendText("6");
+                    default:
+                        break;
+                }
+
             }
         });
         primaryStage.setScene(scene);

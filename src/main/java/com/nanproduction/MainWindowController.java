@@ -14,9 +14,7 @@ public class MainWindowController {
     public static WebSocket webSocket;
     private static final String SERVER = "ws://192.168.137.1:8090/websocket";
     private static final int TIMEOUT = 150;
-    private boolean firstQuery = true;
     private boolean connected = false;
-    private boolean firstMessage=true;
 
     public MainWindowController() {
         System.out.println("MainWindowController() called");
@@ -48,6 +46,7 @@ public class MainWindowController {
             System.err.println("Connecting...");
             try {
                 webSocket = connectToServer();
+                webSocket.sendText("PLAYER");
                 System.err.println("Connected");
                 connected = true;
 
@@ -55,27 +54,16 @@ public class MainWindowController {
                 System.out.println(e);
             }
         }
-        else
-        {
-            if(firstMessage) {
-                webSocket.sendText("fck");
-                firstMessage=false;
-            }
-            else{
-                webSocket.sendText("LOL");
-            }
-        }
+
 
     }
 
     @FXML
     public void onDisconnect() {
         if (connected) {
-            //webSocket.disconnect();
             disconnect();
             connected = false;
-            firstQuery = true;
-            firstMessage= false;
+
         }
     }
 
