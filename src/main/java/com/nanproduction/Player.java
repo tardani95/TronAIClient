@@ -1,15 +1,16 @@
 package com.nanproduction;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static javafx.scene.input.KeyCode.*;
 
 
-public class Player {
+public class Player{
 
 
 
@@ -19,22 +20,37 @@ public class Player {
             {W, UP,I, NUMPAD8},
             {S, DOWN,K, NUMPAD5}
     };
-
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("gameOver")
+    @Expose
     private boolean gameOver;
+    @SerializedName("ready")
+    @Expose
     private volatile boolean ready;
+    @SerializedName("head")
+    @Expose
+    private Point head;
+    @SerializedName("tail")
+    @Expose
+    private List<Point> tail;
+    @SerializedName("dir")
+    @Expose
+    private eDirection dir;
+    @SerializedName("score")
+    @Expose
+    private int score;
+    @SerializedName("color")
+    @Expose
+    private Color color;
+    @SerializedName("keyCode")
+    @Expose
+    private KeyCode keyCode;
 
     public Color getColor() {
         return color;
     }
-
-    private Point head;
-    private List<Point> tail;
-    private eDirection dir;
-    private int score;
-    private Color color;
-    private KeyCode keyCode;
-
 
     public void setKeyCode(KeyCode keyCode) {
         this.keyCode = keyCode;
@@ -69,64 +85,9 @@ public class Player {
         return dir;
     }
 
-    Player(Point head, int id) {
-        gameOver = false;
-        this.id = id;
-
-        //head.initRand();
-        this.head = head;
-
-        tail = new ArrayList<>();
-        dir = eDirection.STOP;
-
-        color=Game.COLORS[id];
-        ready=false;
-
-        score = 0;
+    Player() {
     }
 
-    synchronized public void stepPlayer() {
-        if (keyCode == null) return;
-        if(keyCode==KEY_CUTS[0][id]){
-            if(dir== eDirection.RIGHT){return;}
-            dir = eDirection.LEFT;
-            return;
-        }
-        if(keyCode==KEY_CUTS[1][id]){
-            if(dir== eDirection.LEFT){return;}
-            dir = eDirection.RIGHT;
-            return;
-        }
-        if(keyCode==KEY_CUTS[2][id]){
-            if(dir== eDirection.DOWN){return;}
-            dir = eDirection.UP;
-            return;
-        }
-        if(keyCode==KEY_CUTS[3][id]){
-            if(dir== eDirection.UP){return;}
-            dir = eDirection.DOWN;
-            return;
-        }
-//        switch (keyCode) {
-//            case KEY_CUTS[id][0]:
-//                dir = eDirection.LEFT;
-//                break;
-//            case D:
-//                dir = eDirection.RIGHT;
-//                break;
-//            case W:
-//                dir = eDirection.UP;
-//                break;
-//            case S:
-//                dir = eDirection.DOWN;
-//                break;
-//            case X:
-//                gameOver = true;// kilép
-//                break;
-//            default:
-//                break;
-//        }
-    }
 
     public int getScore() {
         return score;
@@ -136,48 +97,7 @@ public class Player {
         return id;
     }
 
-    void move() {
-        Game game = Game.getInstance();
-        tail.add(0, new Point(head.getX(), head.getY()));
-        head.move(dir);
-        if (head.outOfBorder()) {
-            gameOver = true;
-        }
-        game.removeFreeCoord(head);
-        if (game.getAchievement().getCoord().equals(head)) {
-            game.setAchievement(new Achievement(game.getRandFreeCoord()));
-            score++;
-        } else {
-            game.addFreeCoord(tail.get(tail.size() - 1));
-            tail.remove(tail.size() - 1);
-        }
-        for (Point point : tail) {
-            if (head.equals(point)) {
-                gameOver = true;
 
-            }
-        }
-    }
-
-    void deletePlayer(Game game) {
-        for (Point point : tail) {
-            game.addFreeCoord(point);
-        }
-    }
-
-    void collisionDetection(Player other) {
-        if (head.equals(other.getHead())) {
-            if (id < other.getId()) {
-                Game.getInstance().addFreeCoord(head);
-            }
-            gameOver = true;
-        }
-        for (Point point : other.getTail()) {
-            if (head.equals(point)) {
-                gameOver = true;
-            }
-        }
-    }
 
 
 }

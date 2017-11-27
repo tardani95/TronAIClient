@@ -10,13 +10,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import static com.nanproduction.MainWindowController.disconnect;
-import static com.nanproduction.MainWindowController.webSocket;
-import static javafx.scene.input.KeyCode.*;
 
 public class Main extends Application {
 
-    private static final int SCREEN_SIZE_X = 500;
-    private static final int SCREEN_SIZE_Y = 250;
+    private static final int SCREEN_SIZE_X = 1300;
+    private static final int SCREEN_SIZE_Y = 800;
 
     private Scene scene;
 

@@ -17,8 +17,8 @@ import java.util.Collection;
 public class MainWindowController {
 
     public static WebSocket webSocket;
-    private static final String SERVER = "ws://tarcloud2.ddns.net:8090/websocket";
-    private static final int TIMEOUT = 150;
+    private static final String SERVER = "ws://172.19.74.149:8090/websocket";
+    private static final int TIMEOUT = 300;
     private boolean connected = false;
 
     public static final int CELL_SIZE = 20;
@@ -45,6 +45,14 @@ public class MainWindowController {
     @FXML
     void initialize() {
         System.out.println("Initialize() called");
+        gc=canvas.getGraphicsContext2D();
+        stateText.setText("PLAYING");
+
+        game=Game.getInstance();
+        game.init(this);
+
+        initWindow();
+        drawBase();
     }
 
 
@@ -56,8 +64,8 @@ public class MainWindowController {
                     // A text message arrived from the server.
                     public void onTextMessage(WebSocket websocket, String message) {
 
-
-
+                        game.refreshGameState(message);
+                        drawPlayers();
 
                         System.out.println(message);
                     }
@@ -136,8 +144,9 @@ public class MainWindowController {
         }
     }
 
-    public void drawPlayers(Collection<Player> playerList)
+    public void drawPlayers()
     {
+        Collection<Player> playerList= game.getPlayers();
         gc.clearRect(0, 0, Game.MAP_SIZE_X*CELL_SIZE, Game.MAP_SIZE_Y*CELL_SIZE);
         drawBase();
 
