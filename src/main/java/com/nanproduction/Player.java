@@ -1,5 +1,6 @@
 package com.nanproduction;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import javafx.scene.input.KeyCode;
@@ -26,6 +27,8 @@ public class Player{
     @SerializedName("gameOver")
     @Expose
     private boolean gameOver;
+    @JsonProperty("name")
+    private String name;
     @SerializedName("ready")
     @Expose
     private volatile boolean ready;
@@ -43,13 +46,13 @@ public class Player{
     private int score;
     @SerializedName("color")
     @Expose
-    private Color color;
+    private String color;
     @SerializedName("keyCode")
     @Expose
     private KeyCode keyCode;
 
     public Color getColor() {
-        return color;
+        return Color.web(color);
     }
 
     public void setKeyCode(KeyCode keyCode) {
@@ -59,10 +62,6 @@ public class Player{
 
     public boolean isReady() {
         return ready;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
     }
 
     public boolean isGameOver() {
@@ -75,6 +74,10 @@ public class Player{
 
     public void setReady(boolean ready) {
         this.ready = ready;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public List<Point> getTail() {

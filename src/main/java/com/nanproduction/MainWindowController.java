@@ -7,6 +7,8 @@ import com.neovisionaries.ws.client.WebSocketFactory;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -35,6 +37,12 @@ public class MainWindowController {
 
     @FXML
     public Text scoreText;
+
+    @FXML
+    public ColorPicker colorPicker;
+
+    @FXML
+    public TextField tF_playerName;
 
     private static GraphicsContext gc;
 
@@ -80,7 +88,8 @@ public class MainWindowController {
             System.err.println("Connecting...");
             try {
                 webSocket = connectToServer();
-                webSocket.sendText("PLAYER");
+                //webSocket.sendText("PLAYER");
+                webSocket.sendText("{\"name\":\""+tF_playerName.getText()+"\",\"color\":\"#"+colorPicker.getValue().toString().substring(2)+"\"}");
                 System.err.println("Connected");
                 connected = true;
 
@@ -102,6 +111,7 @@ public class MainWindowController {
     }
 
     public static void disconnect(){
+        if(webSocket==null) return;
         System.err.println("Disconnecting...");
         webSocket.disconnect();
         System.err.println("Disconnected");

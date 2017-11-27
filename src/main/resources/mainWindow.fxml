@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Text?>
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
 <BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nanproduction.MainWindowController">
     <top>
@@ -18,8 +20,17 @@
         </HBox>
     </top>
     <right>
-        <Text text="" textAlignment="CENTER" fx:id="stateText"/>
-        <Text text="SCORE: " textAlignment="CENTER" fx:id="scoreText"/>
+        <VBox>
+            <ColorPicker fx:id="colorPicker">
+                <value>
+                    <Color blue="0.0" green="0.0" red="1.0"/>
+                </value>
+            </ColorPicker>
+            <Label text="Player Name: "/>
+            <TextField fx:id="tF_playerName" text="MaxMustermann"/>
+            <Text text="STATE:" textAlignment="CENTER" fx:id="stateText"/>
+            <Text text="SCORE: " textAlignment="CENTER" fx:id="scoreText"/>
+        </VBox>
     </right>
     <center>
         <HBox BorderPane.alignment="CENTER_LEFT" alignment="CENTER">

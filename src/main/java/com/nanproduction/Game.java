@@ -54,7 +54,6 @@ public class Game extends Thread {
 
     public void refreshGameState(String message) {
         if(message.charAt(0)!='{'){
-            //TODO - send name, color
 
             return;
         }
@@ -67,6 +66,7 @@ public class Game extends Thread {
 
         players=new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
+
         try {
             players = mapper.readValue(playersJson.toString(),
                     TypeFactory.defaultInstance().constructCollectionType(List.class,
