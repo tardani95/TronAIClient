@@ -19,7 +19,7 @@ import java.util.Collection;
 public class MainWindowController {
 
     public static WebSocket webSocket;
-    private static final String SERVER = "ws://172.19.74.149:8090/websocket";
+    private static final String SERVER = "ws://tarcloud2.ddns.net:8090/websocket";
     private static final int TIMEOUT = 300;
     private boolean connected = false;
 

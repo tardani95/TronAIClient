@@ -44,7 +44,7 @@
                         <index>true</index>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
+                            <classpathPrefix>${project.build.directory}/lib/</classpathPrefix>
                             <mainClass>com.nanproduction.Main</mainClass>
                         </manifest>
                     </archive>
