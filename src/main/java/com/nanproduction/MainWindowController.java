@@ -19,7 +19,7 @@ import java.util.Collection;
 public class MainWindowController {
 
     public static WebSocket webSocket;
-    private static final String SERVER = "ws://tarcloud2.ddns.net:8090/websocket";
+    private static final String SERVER = "ws://localhost:8090/websocket";
     private static final int TIMEOUT = 300;
     private boolean connected = false;
 
@@ -164,6 +164,7 @@ public class MainWindowController {
         gc.fillRect(CELL_SIZE * game.getAchievement().getX(), CELL_SIZE * game.getAchievement().getY(), CELL_SIZE, CELL_SIZE);
 
         for(Player player: playerList) {
+            if(player.isGameOver()){continue;}
             gc.setFill(player.getColor()); //playerHead
             gc.fillRect(CELL_SIZE * player.getHead().getX(), CELL_SIZE * player.getHead().getY(), CELL_SIZE, CELL_SIZE); //Fill the Head
 
