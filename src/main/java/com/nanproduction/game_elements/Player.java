@@ -1,4 +1,4 @@
-package com.nanproduction;
+package com.nanproduction.game_elements;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
@@ -23,33 +23,33 @@ public class Player{
     };
     @SerializedName("id")
     @Expose
-    private int id;
+    protected int id;
     @SerializedName("gameOver")
     @Expose
-    private boolean gameOver;
+    protected boolean gameOver;
     @JsonProperty("name")
-    private String name;
+    protected String name;
     @SerializedName("ready")
     @Expose
-    private volatile boolean ready;
+    protected volatile boolean ready;
     @SerializedName("head")
     @Expose
-    private Point head;
+    protected Point head;
     @SerializedName("tail")
     @Expose
-    private List<Point> tail;
+    protected List<Point> tail;
     @SerializedName("dir")
     @Expose
-    private eDirection dir;
+    protected eDirection dir;
     @SerializedName("score")
     @Expose
-    private int score;
+    protected int score;
     @SerializedName("color")
     @Expose
-    private String color;
+    protected String color;
     @SerializedName("keyCode")
     @Expose
-    private KeyCode keyCode;
+    protected KeyCode keyCode;
 
     public Color getColor() {
         return Color.web(color);
@@ -88,7 +88,7 @@ public class Player{
         return dir;
     }
 
-    Player() {
+    public Player() {
     }
 
 
@@ -98,6 +98,31 @@ public class Player{
 
     public int getId() {
         return id;
+    }
+
+
+
+    public eDirection makeDecision(){
+
+
+
+        //TODO - Pick your code here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        return null;
     }
 
 

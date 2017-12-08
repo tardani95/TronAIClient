@@ -1,7 +1,7 @@
-package com.nanproduction;
+package com.nanproduction.game_elements;
 
 public class Achievement {
-    Point coord;
+    private Point coord;
 
     Achievement(Point coord){
         this.coord=coord;
