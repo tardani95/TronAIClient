@@ -1,5 +1,6 @@
 package com.nanproduction;
 
+import com.nanproduction.communication.MainWindowController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-import static com.nanproduction.MainWindowController.disconnect;
+import static com.nanproduction.communication.MainWindowController.disconnect;
 
 public class Main extends Application {
 

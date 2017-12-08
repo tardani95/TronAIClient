@@ -1,5 +1,6 @@
-package com.nanproduction;
+package com.nanproduction.communication;
 
+import com.nanproduction.game_elements.Player;
 import com.neovisionaries.ws.client.WebSocket;
 import com.neovisionaries.ws.client.WebSocketAdapter;
 import com.neovisionaries.ws.client.WebSocketException;
@@ -19,14 +20,14 @@ import java.util.Collection;
 public class MainWindowController {
 
     public static WebSocket webSocket;
-    private static final String SERVER = "ws://172.19.74.149:8090/websocket";
+    private static final String SERVER = "ws://localhost:8090/websocket";
     private static final int TIMEOUT = 300;
     private boolean connected = false;
 
     public static final int CELL_SIZE = 20;
     public static final double BODY_SCALE = 0.5;
 
-    private Game game;
+    private GameState gameState;
 
 
     @FXML
@@ -56,8 +57,8 @@ public class MainWindowController {
         gc=canvas.getGraphicsContext2D();
         stateText.setText("PLAYING");
 
-        game=Game.getInstance();
-        game.init(this);
+        gameState= GameState.getInstance();
+        gameState.init(this);
 
         initWindow();
         drawBase();
@@ -71,11 +72,18 @@ public class MainWindowController {
                 .addListener(new WebSocketAdapter() {
                     // A text message arrived from the server.
                     public void onTextMessage(WebSocket websocket, String message) {
+                        System.out.println(message);
 
-                        game.refreshGameState(message);
+                        if(message.charAt(0)!='{'){
+                            GameState.getInstance().myPlayerId=Integer.parseInt(message);
+                            return;
+                        }
+
+                        gameState.refreshGameState(message);
+
+
                         drawPlayers();
 
-                        System.out.println(message);
                     }
                 })
                 .connect();
@@ -135,8 +143,8 @@ public class MainWindowController {
     }
 
     private void initWindow() {
-        canvas.setHeight(CELL_SIZE *Game.MAP_SIZE_Y);
-        canvas.setWidth(CELL_SIZE*Game.MAP_SIZE_X);
+        canvas.setHeight(CELL_SIZE * GameState.MAP_SIZE_Y);
+        canvas.setWidth(CELL_SIZE* GameState.MAP_SIZE_X);
     }
 
     private void drawBase(){
@@ -146,22 +154,22 @@ public class MainWindowController {
 
         gc.setLineWidth(0.5);
 
-        for(int i=0;i<Game.MAP_SIZE_X;i++){
+        for(int i = 0; i< GameState.MAP_SIZE_X; i++){
             gc.strokeLine(i*CELL_SIZE,0,i*CELL_SIZE,canvas.getHeight());
         }
-        for(int j=0; j<Game.MAP_SIZE_Y; j++){
+        for(int j = 0; j< GameState.MAP_SIZE_Y; j++){
             gc.strokeLine(0,j* CELL_SIZE,canvas.getWidth(),j*CELL_SIZE);
         }
     }
 
     public void drawPlayers()
     {
-        Collection<Player> playerList= game.getPlayers();
-        gc.clearRect(0, 0, Game.MAP_SIZE_X*CELL_SIZE, Game.MAP_SIZE_Y*CELL_SIZE);
+        Collection<Player> playerList= gameState.getPlayers();
+        gc.clearRect(0, 0, GameState.MAP_SIZE_X*CELL_SIZE, GameState.MAP_SIZE_Y*CELL_SIZE);
         drawBase();
 
         gc.setFill(Color.RED); //achivemenet
-        gc.fillRect(CELL_SIZE * game.getAchievement().getX(), CELL_SIZE * game.getAchievement().getY(), CELL_SIZE, CELL_SIZE);
+        gc.fillRect(CELL_SIZE * gameState.getAchievement().getX(), CELL_SIZE * gameState.getAchievement().getY(), CELL_SIZE, CELL_SIZE);
 
         for(Player player: playerList) {
             if(player.isGameOver()){continue;}

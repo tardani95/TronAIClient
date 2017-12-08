@@ -11,7 +11,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Label?>
 <BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nanproduction.MainWindowController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nanproduction.communication.MainWindowController">
     <top>
         <HBox spacing="10">
             <Button onAction="#onConnectToServer" text="Connect to server"/>

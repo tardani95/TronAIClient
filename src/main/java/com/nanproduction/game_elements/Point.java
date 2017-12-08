@@ -1,4 +1,6 @@
-package com.nanproduction;
+package com.nanproduction.game_elements;
+
+import com.nanproduction.communication.GameState;
 
 import java.util.Random;
 
@@ -6,7 +8,7 @@ public class Point {
     private int x = 0;
     private int y = 0;
 
-    Point() {
+    public Point() {
     }
 
     public int getX() {
@@ -17,15 +19,15 @@ public class Point {
         return y;
     }
 
-    Point(int x, int y) {
+    public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    void initRand() {
+    public void initRand() {
         Random rand = new Random();
-        this.x = rand.nextInt(Game.MAP_SIZE_X);
-        this.y = rand.nextInt(Game.MAP_SIZE_Y);
+        this.x = rand.nextInt(GameState.MAP_SIZE_X);
+        this.y = rand.nextInt(GameState.MAP_SIZE_Y);
     }
 
     @Override
@@ -34,6 +36,10 @@ public class Point {
             return x==((Point) obj).getX() && y==((Point) obj).getY();
         }
         return super.equals(obj);
+    }
+
+    public int manhattanDistance(Point other){
+        return Math.abs(other.getX()-x)+Math.abs(other.getY()-y);
     }
 
     void move(eDirection dir){
@@ -58,7 +64,7 @@ public class Point {
     }
 
     boolean outOfBorder(){
-        return x >= Game.MAP_SIZE_X || x < 0 || y >= Game.MAP_SIZE_Y || y < 0;
+        return x >= GameState.MAP_SIZE_X || x < 0 || y >= GameState.MAP_SIZE_Y || y < 0;
     }
 
 }
